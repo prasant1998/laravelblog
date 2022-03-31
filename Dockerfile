@@ -33,6 +33,7 @@ RUN apt-get update && \
     rm -fr /var/lib/apt/lists/*
 
 RUN /usr/sbin/phpenmod mcrypt
+EXPOSE 80
 
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
