@@ -33,7 +33,7 @@ RUN apt-get update && \
     rm -fr /var/lib/apt/lists/*
 
 RUN /usr/sbin/phpenmod mcrypt
-EXPOSE 80
+
 
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
 
@@ -51,6 +51,8 @@ RUN mkdir /run/php
 COPY docker/php/laravel.conf /etc/php/${PHP_VERSION}/fpm/pool.d/laravel.conf
 COPY docker/php/php.ini /etc/php/${PHP_VERSION}/fpm/php.ini
 
+EXPOSE 80
+
 RUN rm /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf
 
 RUN sed -i -e 's/;daemonize = yes/daemonize = no/g' /etc/php/${PHP_VERSION}/fpm/php-fpm.conf
@@ -63,3 +65,4 @@ RUN chown -R www-data:www-data /var/log/supervisor/ &&\
     chown -R www-data:www-data /etc/nginx/
 
 CMD ["/bin/bash", "./docker/entrypoint.sh"]
+
